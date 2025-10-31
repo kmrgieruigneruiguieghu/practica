@@ -1,4 +1,6 @@
 import React from "react";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+
 import styled from "styled-components";
 import cicon from '../pictures/cicon.png';
 import app_dev from '../pictures/app_development.png';
@@ -9,6 +11,7 @@ import ideate from '../pictures/ideate.png';
 import web_dev from '../pictures/web_development.png';
 import strelka from '../pictures/strelochko.png';
 import party from '../pictures/pati_daynow.png';
+import vector from '../pictures/Vector.png';
 
 const PageWrapper = styled.div`
   display: flex;
@@ -194,55 +197,150 @@ const PartyImg = styled.img`
   padding: 0px 200px 0 200px;
 `;
 
+// const PartyImg = styled.img`
+//   z-index: -1;
+//   position: absolute;
+// `;
+
 const SatisfactionSection = styled.section`
-  width: 100%;
+  background-image: url("src/pictures/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 900px;
   margin-bottom: 100px;
+`;
+
+const PaddingCon = styled.div`
+  padding: 0 0px 0px 220px;
+  display: flex;
+  align-items: center;
+`;
+
+const NameplateMainGroup = styled.div`
+  text-align: center;
+  display: flex;
+  gap: 130px;
+`;
+
+const NameplateGroup1 = styled.div`
+  margin-top: 190px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
+  gap: 100px;
+`;
+
+const NameplateGroup2 = styled.div`
+  margin-top: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+`;
+
+const Nameplate = styled.div`
+`;
+
+const NameplateTitle1 = styled.p`
+  color: #4C40F7;
+  font-size: 3rem;
+  font-weight: 600;
+`;
+
+const NameplateTitle2 = styled.p`
+  color: #FF2D59;
+  font-size: 3rem;
+  font-weight: 600;
+`;
+
+const NameplateTitle3 = styled.p`
+  color: #FF6800;
+  font-size: 3rem;
+  font-weight: 600;
+`;
+
+const NameplateTitle4 = styled.p`
+  color: #4ADB61;
+  font-size: 3rem;
+  font-weight: 600;
+`;
+
+const NameplateDescription = styled.p`
+  font-size: 1.2rem;
+  color: #666;
 `;
 
 const SatisfactionHeader = styled.div`
-  text-align: center;
-  margin-bottom: 80px;
-  width: 100%;
+  text-align: left;
+  padding: 70px 0 0 150px;
 `;
 
 const SatisfactionTitle = styled.h1`
-  font-size: 42px;
   margin-bottom: 30px;
-  color: #2c3e50;
-  font-weight: 700;
-  line-height: 1.2;
-  width: 800px;
-  max-width: 100%;
-  text-align: center;
+  font-size: 3.7rem;
 `;
 
 const SatisfactionDescription = styled.p`
-  font-size: 20px;
+  font-size: 1.2rem;
   color: #666;
-  width: 800px;
-  max-width: 100%;
-  margin: 0 auto 40px;
-  line-height: 1.6;
-  text-align: center;
 `;
 
 const FeaturesList = styled.ul`
-  width: 600px;
-  max-width: 100%;
-  text-align: left;
-  margin: 0 auto;
-  
   li {
-    font-size: 18px;
+    font-size: 1.2rem;
     color: #666;
-    line-height: 1.6;
+    line-height: 2;
     margin-bottom: 15px;
     padding-left: 10px;
+    list-style-type: none;
+    list-style-image: url("src/pictures/galochka.png");
   }
+`;
+
+const WorkspaceContent = styled.div`
+`;
+
+const WorkspaceTitle = styled.div`
+  font-size: 1.4rem;
+  color: #ff0022ff;
+  text-align: center;
+`;
+
+const WorkspaceSubtitle = styled.div`
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 600;
+`;
+
+const Background = styled.div`
+  background-image: url("src/pictures/VectorGroup.png");
+  background-repeat: no-repeat;
+  background-position: -120px -200px; 
+`;
+
+const Rooms_spaces = styled.div`
+  padding: 40px 150px 200px 150px;
+`;
+
+const ImageCardCon = styled.div`
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
+`;
+
+const ImageOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  padding: 15px;
+  opacity: 1;
+`;
+
+const ImageTitle = styled.div`
+  font-size: 1.2rem;
 `;
 
 const Home = () => {
@@ -284,6 +382,26 @@ const Home = () => {
       icon: strelka
     }
   ];
+
+  const images = [
+    { id: 1, src: 'src/pictures/front_working_space.png', alt: 'Image 1', title: 'Front working space', height: 300 },
+    { id: 2, src: 'src/pictures/meeting_corner.png', alt: 'Image 2', title: 'Meeting corner', height: 450 },
+    { id: 3, src: 'src/pictures/guest_meeting_room.png', alt: 'Image 3', title: 'Guest meeting room', height: 250 },
+    { id: 4, src: 'src/pictures/guest_rest_room.png', alt: 'Image 4', title: 'Guest rest room', height: 500 },
+    { id: 5, src: 'src/pictures/single_working_space.png', alt: 'Image 5', title: 'Single working space', height: 350 },
+    { id: 6, src: 'src/pictures/kitchen_room.png', alt: 'Image 6', title: 'Kitchen room', height: 400 },
+  ];
+
+  const ImageCard = ({ src, alt, title }) => {
+  return (
+    <ImageCardCon>
+      <img src={src} alt={alt} style={{ width: '100%'}} />
+      <ImageOverlay>
+        <ImageTitle>{title}</ImageTitle>
+      </ImageOverlay>
+    </ImageCardCon>
+  );
+};
 
   return (
     <div>
@@ -334,22 +452,66 @@ const Home = () => {
         <PartyImg src={party}/>
       </DocumentationSection>
       <SatisfactionSection>
-        <SatisfactionHeader>
-          <SatisfactionTitle>Customer satisfaction is our first priority</SatisfactionTitle>
-          <SatisfactionDescription>
-            We serve many customers, ranging from small businesses, medium entrepreneurs, 
-            to socio-renowned companies. Their satisfaction is our pleasure. We strive 
-            to provide the best service by:
-          </SatisfactionDescription>
-          <FeaturesList>
-            <li>Provide bike support from our creative team</li>
-            <li>Provide attractive and professional design services</li>
-            <li>Support for service 24 hours a week</li>
-            <li>Helping our customers to grow their business</li>
-            <li>Provide support to market products through online marketplaces</li>
-          </FeaturesList>
-        </SatisfactionHeader>
+        <PaddingCon>
+          <NameplateMainGroup>
+            <NameplateGroup1>
+              <Nameplate>
+                <NameplateTitle1>70K+</NameplateTitle1>
+                <NameplateDescription>We have more than <br/> customers</NameplateDescription>
+              </Nameplate>
+              <Nameplate>
+                <NameplateTitle2>10M+</NameplateTitle2>
+                <NameplateDescription>People who are helped <br/> because of our hard <br/> work</NameplateDescription>
+              </Nameplate>
+            </NameplateGroup1>
+            <NameplateGroup2>
+              <Nameplate>
+                <NameplateTitle3>100+</NameplateTitle3>
+                <NameplateDescription>Projects we have <br/> completed</NameplateDescription>
+              </Nameplate>
+              <Nameplate>
+                <NameplateTitle4>200+</NameplateTitle4>
+                <NameplateDescription>Support from world <br/> -renowned companies</NameplateDescription>
+              </Nameplate>
+            </NameplateGroup2>
+          </NameplateMainGroup>
+          <SatisfactionHeader>
+            <SatisfactionTitle>Customer <br/> satisfaction is <br/> our first priority</SatisfactionTitle>
+            <SatisfactionDescription>
+              We serve many customers, ranging from small <br/> businesses, medium entrepreneurs, 
+              to world <br/> -renowned companies. Their satisfaction is our <br/> pleasure. We strive 
+              to provide the best service by:
+            </SatisfactionDescription>
+            <FeaturesList>
+              <li>Provide bike support from our creative team</li>
+              <li>Provide attractive and professional design <br/> services</li>
+              <li>Support for service 24 hours a week</li>
+              <li>Helping our customers to grow their business</li>
+              <li>Provide support to market products through <br/> online marketplaces</li>
+            </FeaturesList>
+          </SatisfactionHeader>
+        </PaddingCon>
       </SatisfactionSection>
+      <WorkspaceContent>
+        <WorkspaceTitle>Working space</WorkspaceTitle>
+        <WorkspaceSubtitle>Let's meet our interior room decoration</WorkspaceSubtitle>
+      </WorkspaceContent>
+      <Background>
+        <Rooms_spaces>
+          <ResponsiveMasonry>
+            <Masonry>
+              {images.map((image) => (
+                <ImageCard
+                  key={image.id}
+                  src={image.src}
+                  alt={image.alt}
+                  title={image.title}
+                />
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
+        </Rooms_spaces>
+      </Background>
     </div>
   );
 };
