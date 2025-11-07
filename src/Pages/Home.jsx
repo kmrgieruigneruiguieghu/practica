@@ -21,6 +21,10 @@ import henry from '../pictures/lazery_iz_glaz.png';
 import kristin from '../pictures/Kristin.png';
 import guy from '../pictures/Guy.png';
 import savannah from '../pictures/savannah.png';
+import map from '../pictures/map.png';
+
+const Div = styled.div`
+`;
 
 const PageWrapper = styled.div`
   display: flex;
@@ -418,7 +422,10 @@ const Text2 = styled.p`
   font-weight: 600;
 `;
 
-const NavButton = styled.a`
+const NavButton = styled.button.attrs({
+  type: 'button'
+})`
+  caret-color: transparent;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -433,7 +440,7 @@ const NavButton = styled.a`
   &:hover {
     background: #3498db;
     color: white;
-    transform: scale(1.1);
+    transform: scale(1.2);
   }
 `;
 
@@ -445,6 +452,7 @@ const DotsContainer = styled.div`
 `;
 
 const Dot = styled.button`
+  caret-color: transparent;
   border-radius: 30%;
   border: none;
   outline: none;
@@ -460,6 +468,7 @@ const TabSection = styled.div`
   background-repeat: no-repeat;
   background-size: 2000px 2000px;
   background-position: -100px -650px; 
+  min-height: 1400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -620,8 +629,9 @@ const Footer = styled.div`
   margin-top: 100px;
   background-image: url("src/pictures/small_footer.png");
   background-repeat: no-repeat;
-  background-size: 2000px 1200px;
-  height: 1200px;
+  background-size: 2200px 1400px;
+  background-position: -200px 0px;
+  height: 1400px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -640,7 +650,7 @@ const YellowCard = styled.div`
 `;
 
 const FooterTitle = styled.div`
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   text-align: center;
   padding-top: 60px;
 `;
@@ -668,6 +678,7 @@ const FooterButton = styled.a`
 `;
 
 const BlueCard = styled.div`
+  margin-top: 150px;
   background-image: url("src/pictures/blue.png");
   background-repeat: no-repeat;
   display: flex;
@@ -678,19 +689,80 @@ const BlueCard = styled.div`
   width: 1120px;
 `;
 
-const FooterInput = styled.a`
+const FooterInput = styled.input`
+  width: 500px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  &:focus {
+    border: none;
+    outline: none;  
+  }
+`;
+
+const MainFooter = styled.div`
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
+
+const UpperSection = styled.div`
+  display: flex;
+  gap: 80px;
+`;
+
+const Logo_text = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const LogoImage2 = styled.img`
+  width: 100px;
+`;
+
+const FooterDescription = styled.p`
+`;
+
+const Map = styled.div`
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+`;
+
+const MainText = styled.p`
+  font-weight: bold;
+`;
+
+const MapImage = styled.img`
+`;
+
+const Contact = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Line = styled.div`
+  border-bottom: 3px solid white;
+`;
+
+const LowerSection = styled.div`
+  display: flex;
+  gap: 200px;
+`;
+
+const Rights = styled.p`
+  margin: 0;
+`;
+
+const NavLink2 = styled.a`
   text-decoration: none;
   color: white;
-  background: #001affff;
-  padding: 20px 55px;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  font-weight: 500;
-  font-size: 1.1rem;
+  transition: color 0.3s ease;
+  cursor: pointer;
   &:hover {
-    background: #000d86ff;
-    color: white;
-    transform: translateY(-2px);
+    color: #3498db;
   }
 `;
 
@@ -789,7 +861,6 @@ const Home = () => {
   ];
 
   const nextSlide = () => {
-    // if (e) e.preventDefault();
     setCurrentIndex((prevIndex) => 
       prevIndex === faqItems.length - 1 ? 0 : prevIndex + 1
     );
@@ -896,7 +967,7 @@ const Home = () => {
   ];
   
   return (
-    <div>
+    <Div>
       <PageWrapper>
         <Container>
           <Header>
@@ -904,9 +975,9 @@ const Home = () => {
               <LogoImage src={cicon}/>
             </Logo>
             <Nav>
-              <NavLink>Home</NavLink>
-              <NavLink>Works</NavLink>
-              <NavLink>About</NavLink>
+              <NavLink href="/">Home</NavLink>
+              <NavLink href="#works">Works</NavLink>
+              <NavLink href="#about">About</NavLink>
             </Nav>
           <PrimaryButton href="/">Contact us</PrimaryButton>
           </Header>
@@ -922,7 +993,7 @@ const Home = () => {
               <PrimaryButton href="/">Get Started →</PrimaryButton>
             </HeroContent>
           </HeroSection>
-          <Section>
+          <Section id="works">
             <SectionTitle>Our Services</SectionTitle>
             <SectionSubtitle>The various services we provide to make your <br/> business more powerful</SectionSubtitle>
             <ServicesGrid>
@@ -938,12 +1009,12 @@ const Home = () => {
           </Section>
         </Container>
       </PageWrapper>
-      <DocumentationSection>
+      <DocumentationSection id="about">
         <SectionTitle>Our Documentation</SectionTitle>
         <SectionSubtitle>See what our profile is like and how we work for your <br/> business</SectionSubtitle>
         <PartyImg src={party}/>
       </DocumentationSection>
-      <SatisfactionSection>
+      <SatisfactionSection id="pricing">
         <PaddingCon>
           <NameplateMainGroup>
             <NameplateGroup1>
@@ -1015,7 +1086,7 @@ const Home = () => {
       <CarouselSection>
         <CarouselContainer>
           <CarouselTrack ref={trackRef} translateValue={translateValue}>
-            {carouselItems.map((item, index) => (
+            {carouselItems.map((item) => (
               <CarouselItem key={item.id}>
                 <KavichImg src={item.img}/>
                 <Text1>{item.text1}</Text1>
@@ -1026,7 +1097,7 @@ const Home = () => {
           </CarouselTrack>
         </CarouselContainer>
         <DotsContainer>
-          <NavButton onClick={prevSlide} aria-label="Previous question">←</NavButton>
+          <NavButton onClick={prevSlide}>←</NavButton>
           {carouselItems.map((_, index) => (
             <Dot
               key={index}
@@ -1035,7 +1106,7 @@ const Home = () => {
               aria-label={'Go to question ${index + 1}'}
             />
           ))}
-          <NavButton onClick={nextSlide} aria-label="Next question">→</NavButton>
+          <NavButton onClick={nextSlide}>→</NavButton>
         </DotsContainer>
       </CarouselSection>
       <TabSection>
@@ -1087,8 +1158,37 @@ const Home = () => {
           <FooterSubtitle>Subscribe Now</FooterSubtitle>
           <FooterInput type="email" placeholder="Email"/>
         </BlueCard>
+        <MainFooter>
+          <UpperSection>
+            <Logo_text>
+              <LogoImage2 src={cicon}/>
+              <FooterDescription>Lorem ipsum dolor sit amet, consectetur<br/>adipiscing elit, sed do eiusmod tempor<br/>incididunt ut labore et dolore magna aliqua.<br/>Ut enim ad minim veniam, quis nostrud<br/>exercitation ullamco laboris nisi ut aliquip ex<br/>ea commodo consequat. Duis aute irure<br/>dolor in reprehenderit in voluptate velit esse<br/>cillum dolore eu fugiat nulla pariatur.</FooterDescription>
+            </Logo_text>
+            <Map>
+              <MainText>Our Office</MainText>
+              <MapImage src={map}/>
+            </Map>
+            <Contact>
+              <MainText>Contact</MainText>
+              <FooterDescription>Jl KH Samanhudi<br/>Metro Atom Plaza Bl<br/>AKS 1/11, Dki Jakarta</FooterDescription>
+              <FooterDescription>info@yourdomain.<br/>com</FooterDescription>
+              <FooterDescription>+62 (0) 000 0000 00</FooterDescription>
+            </Contact>
+          </UpperSection>
+          <Line/>
+          <LowerSection>
+            <Rights>© 2021 Creative Agency</Rights>
+            <Nav>
+              <NavLink2 href="/">Home</NavLink2>
+              <NavLink2 href="#works">Works</NavLink2>
+              <NavLink2 href="#about">About</NavLink2>
+              <NavLink2 href="#pricing">Pricing</NavLink2>
+              <NavLink2 href="#about">About</NavLink2>
+            </Nav>
+          </LowerSection>
+        </MainFooter>
       </Footer>
-    </div>
+    </Div>
   );
 };
 
