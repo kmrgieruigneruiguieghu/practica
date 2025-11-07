@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import styled from "styled-components";
@@ -12,6 +12,15 @@ import web_dev from '../pictures/web_development.png';
 import strelka from '../pictures/strelochko.png';
 import party from '../pictures/pati_daynow.png';
 import vector from '../pictures/Vector.png';
+import logo1 from '../pictures/Logo1.png';
+import logo2 from '../pictures/Logo2.png';
+import kavichki from '../pictures/kavichki.png';
+import ronald from '../pictures/ronald.png';
+import robert from '../pictures/robert.png';
+import henry from '../pictures/lazery_iz_glaz.png';
+import kristin from '../pictures/Kristin.png';
+import guy from '../pictures/Guy.png';
+import savannah from '../pictures/savannah.png';
 
 const PageWrapper = styled.div`
   display: flex;
@@ -150,13 +159,11 @@ const ServiceCard = styled.div`
   background: #ffffff;
   padding: 40px 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   border: 1px solid #f0f0f0;
   text-align: center;
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
     background: #4C40F7;
     color: white;
   }
@@ -196,11 +203,6 @@ const DocumentationSection = styled.div`
 const PartyImg = styled.img`
   padding: 0px 200px 0 200px;
 `;
-
-// const PartyImg = styled.img`
-//   z-index: -1;
-//   position: absolute;
-// `;
 
 const SatisfactionSection = styled.section`
   background-image: url("src/pictures/background.png");
@@ -302,6 +304,15 @@ const WorkspaceTitle = styled.div`
   font-size: 1.4rem;
   color: #ff0022ff;
   text-align: center;
+  font-weight: 600;
+`;
+
+const WorkspaceTitle2 = styled.div`
+  font-size: 1.4rem;
+  color: #ff0022ff;
+  text-align: center;
+  font-weight: 600;
+  padding-top: 200px;
 `;
 
 const WorkspaceSubtitle = styled.div`
@@ -313,7 +324,8 @@ const WorkspaceSubtitle = styled.div`
 const Background = styled.div`
   background-image: url("src/pictures/VectorGroup.png");
   background-repeat: no-repeat;
-  background-position: -120px -200px; 
+  background-size: 2500px;
+  background-position: -350px -420px; 
 `;
 
 const Rooms_spaces = styled.div`
@@ -341,6 +353,345 @@ const ImageOverlay = styled.div`
 
 const ImageTitle = styled.div`
   font-size: 1.2rem;
+`;
+
+const CustomersGroup = styled.div`
+  padding: 70px 0px 220px 370px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+`;
+
+const Img = styled.img`
+  height: 30px;
+  width: 800px;
+`;
+
+const CarouselSection = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 0px 100px 0px;
+  background: orange;
+  position: relative;
+  text-align: center;
+`;
+
+const CarouselContainer = styled.div`
+  display: flex;
+  overflow: hidden;
+  color: white;
+  gap: 20px;
+  padding: 40px 0px 0px 0px;
+`;
+
+const CarouselTrack = styled.div`
+  display: flex;
+  flex: 1;
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(${props => props.translateValue}%);
+`;
+
+const CarouselItem = styled.div`
+  width: 100%;
+  min-width: 100%;
+  white-space: pre-line;
+  flex-shrink: 0;
+  border-radius: 18px;
+  box-sizing: border-box;
+`;
+
+const KavichImg = styled.img`
+  height: 100px;
+`;
+
+const Text1 = styled.p`
+  font-size: 2rem;
+  margin-bottom: 50px;
+`;
+
+const Author = styled.p`
+  font-weight: 600;
+`;
+
+const Text2 = styled.p`
+  font-weight: 600;
+`;
+
+const NavButton = styled.a`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: white;
+  color: #3498db;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  &:hover {
+    background: #3498db;
+    color: white;
+    transform: scale(1.1);
+  }
+`;
+
+const DotsContainer = styled.div`
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  align-items: center;
+`;
+
+const Dot = styled.button`
+  border-radius: 30%;
+  border: none;
+  outline: none;
+  background: ${props => props.active ? '#ffffffff' : '#FFCC00'};
+  transition: all 0.3s ease;
+  &:hover {
+    background: ${props => props.active ? '#ffffffff' : '#FFCC00'};
+  }
+`;
+
+const TabSection = styled.div`
+  background-image: url("src/pictures/drygie_balls.png");
+  background-repeat: no-repeat;
+  background-size: 2000px 2000px;
+  background-position: -100px -650px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+`;
+
+const TabContainer = styled.div`
+  padding: 60px 110px; 0px 110px;
+`;
+
+const TabItem = styled.div`
+  border: 1px solid #afafafff;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  overflow: hidden;
+`;
+
+const TabHeader = styled.button`
+  width: 100%;
+  padding: 25px 20px;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  outline: none;
+  &:hover {
+    background-color: #e8e8e8ff;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Question = styled.h3`
+  font-size: 18px;
+  color: #2c3e50;
+  font-weight: 500;
+  margin: 0;
+  flex: 1;
+`;
+
+const Arrow = styled.span`
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+  transform: ${props => props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)'};
+  &::before {
+    content: '▼';
+  }
+`;
+
+const TabContent = styled.div`
+  padding: ${props => props.isOpen ? '20px' : '0 20px'};
+  max-height: ${props => props.isOpen ? '500px' : '0'};
+  opacity: ${props => props.isOpen ? '1' : '0'};
+  background-color: white;
+  transition: all 0.3s ease;
+  overflow: hidden;
+`;
+
+const Answer = styled.p`
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+`;
+
+const Testimonials = styled.div`
+  background: #f2f2f2ff;
+  padding: 100px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const TermonialContainer = styled.div`
+  max-width: 1200px;
+  width: 100%;
+`;
+
+const TestimonialsGrid = styled.div`
+  margin-top: 120px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 90px 0px;
+  justify-items: center;
+`;
+
+const TestimonialCard = styled.div`
+  position: relative;
+  background: white;
+  text-align: center;
+  border-radius: 20px;
+  padding: 40px 50px 50px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(178, 184, 228, 0.76);
+  }
+`;
+
+const UserAvatar = styled.img`
+  position: absolute;
+  top: -50px;
+  left: 130px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+`;
+
+const TestimonialContent = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Text = styled.p`
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+  flex: 1;
+  white-space: pre-line;
+`;
+
+const UserInfo = styled.div`
+  margin-top: auto;
+`;
+
+const UserName = styled.h4`
+  font-size: 16px;
+  color: #2c3e50;
+  margin-bottom: 5px;
+  font-weight: 600;
+`;
+
+const UserCompany = styled.p`
+  font-size: 14px;
+  color: #7f8c8d;
+  margin-bottom: 15px;
+`;
+
+const Stars = styled.div`
+  color: #4C40F7;
+  font-size: 2rem;
+`;
+
+const Footer = styled.div`
+  margin-top: 100px;
+  background-image: url("src/pictures/small_footer.png");
+  background-repeat: no-repeat;
+  background-size: 2000px 1200px;
+  height: 1200px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+`;
+
+const YellowCard = styled.div`
+  background-image: url("src/pictures/yellow.png");
+  background-repeat: no-repeat;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-direction: column;
+  height: 340px;
+  width: 1120px;
+`;
+
+const FooterTitle = styled.div`
+  font-size: 1.4rem;
+  text-align: center;
+  padding-top: 60px;
+`;
+
+const FooterSubtitle = styled.div`
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+`;
+
+const FooterButton = styled.a`
+  text-decoration: none;
+  color: white;
+  background: #001affff;
+  padding: 20px 55px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 1.1rem;
+  &:hover {
+    background: #000d86ff;
+    color: white;
+    transform: translateY(-2px);
+  }
+`;
+
+const BlueCard = styled.div`
+  background-image: url("src/pictures/blue.png");
+  background-repeat: no-repeat;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-direction: column;
+  height: 340px;
+  width: 1120px;
+`;
+
+const FooterInput = styled.a`
+  text-decoration: none;
+  color: white;
+  background: #001affff;
+  padding: 20px 55px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 1.1rem;
+  &:hover {
+    background: #000d86ff;
+    color: white;
+    transform: translateY(-2px);
+  }
 `;
 
 const Home = () => {
@@ -403,6 +754,147 @@ const Home = () => {
   );
 };
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const trackRef = useRef(null);
+
+  const carouselItems = [
+    {
+      id: 1,
+      img: kavichki,
+      text1: "We are serious about providing our best service to\nall the customers we help. Customers satisfaction is\nour number one priority.",
+      author: "Mark Garfield",
+      text2: "CEO & Head of Product"
+    },
+    {
+      id: 2,
+      img: kavichki,
+      text1: "We are serious about providing our best service to\nall the customers we help. Customers satisfaction is\nour number one priority.",
+      author: "Mark Garfield",
+      text2: "CEO & Head of Product"
+    },
+    {
+      id: 3,
+      img: kavichki,
+      text1: "We are serious about providing our best service to\nall the customers we help. Customers satisfaction is\nour number one priority.",
+      author: "Mark Garfield",
+      text2: "CEO & Head of Product"
+    },
+    {
+      id: 4,
+      img: kavichki,
+      text1: "We are serious about providing our best service to\nall the customers we help. Customers satisfaction is\nour number one priority.",
+      author: "Mark Garfield",
+      text2: "CEO & Head of Product"
+    },
+  ];
+
+  const nextSlide = () => {
+    // if (e) e.preventDefault();
+    setCurrentIndex((prevIndex) => 
+      prevIndex === faqItems.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? faqItems.length - 1 : prevIndex - 1
+    );
+  };
+
+   const goToSlide = (index) => {
+    setCurrentIndex(index);
+  };
+
+  const translateValue = -currentIndex * 100;
+
+  const [openItems, setOpenItems] = useState({});
+
+  const tabItems = [
+    {
+      id: 1,
+      question: "What are the services provided to customers?",
+      answer: "Hello, we provide various services to help your business grow and develop. We help provide ideas, create designs, develop websites and mobile applications, provide support for the growth of business ideas, to help customers market their products online through the marketplace.",
+    },
+    {
+      id: 2,
+      question: "How can I submit a proposal for cooperation?",
+      answer: "text",
+    },
+    {
+      id: 3,
+      question: "I come from a faraway place, can collaboration be done full time online through several meeting applications?",
+      answer: "text",
+    },
+    {
+      id: 4,
+      question: "How do I get the payment complete?",
+      answer: "text",
+    },
+    {
+      id: 5,
+      question: "How long can the collaboration last?",
+      answer: "text",
+    }
+  ];
+
+  const toggleItem = (id) => {
+      setOpenItems(prev => ({
+        ...prev,
+        [id]: !prev[id]
+      }));
+    };
+
+  const testimonials = [
+    {
+      id: 1,
+      img: ronald,
+      name: "Ronald Richards",
+      company: "Google Inc.",
+      text: "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit, sed\ndo eiusmod tempor incididunt.",
+      rating: 5
+    },
+    {
+      id: 2,
+      img: guy,
+      name: "Guy Hawkins",
+      company: "Paypal Inc.",
+      text: "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit, sed\ndo eiusmod tempor incididunt.",
+      rating: 5
+    },
+    {
+      id: 3,
+      img: kristin,
+      name: "Kristin Watson",
+      company: "Microsoft Inc.",
+      text: "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit, sed\ndo eiusmod tempor incididunt.",
+      rating: 5
+    },
+    {
+      id: 4,
+      img: robert,
+      name: "Robert Fox",
+      company: "Facebook Inc.",
+      text: "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit, sed\ndo eiusmod tempor incididunt.",
+      rating: 5,
+    },
+    {
+      id: 5,
+      img: savannah,
+      name: "Savannah Nguyen",
+      company: "Twitter Inc.",
+      text: "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit, sed\ndo eiusmod tempor incididunt.",
+      rating: 5
+    },
+    {
+      id: 6,
+      img: henry,
+      name: "Courtney Henry",
+      company: "Apple Inc.",
+      text: "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit, sed\ndo eiusmod tempor incididunt.",
+      rating: 5
+    }
+  ];
+  
   return (
     <div>
       <PageWrapper>
@@ -492,11 +984,11 @@ const Home = () => {
           </SatisfactionHeader>
         </PaddingCon>
       </SatisfactionSection>
-      <WorkspaceContent>
-        <WorkspaceTitle>Working space</WorkspaceTitle>
-        <WorkspaceSubtitle>Let's meet our interior room decoration</WorkspaceSubtitle>
-      </WorkspaceContent>
       <Background>
+        <WorkspaceContent>
+          <WorkspaceTitle>Working space</WorkspaceTitle>
+          <WorkspaceSubtitle>Let's meet our interior room decoration</WorkspaceSubtitle>
+        </WorkspaceContent>
         <Rooms_spaces>
           <ResponsiveMasonry>
             <Masonry>
@@ -512,6 +1004,90 @@ const Home = () => {
           </ResponsiveMasonry>
         </Rooms_spaces>
       </Background>
+      <WorkspaceContent>
+          <WorkspaceTitle>Some of Our Great Customers</WorkspaceTitle>
+          <WorkspaceSubtitle>Some of the companies we have worked with</WorkspaceSubtitle>
+      </WorkspaceContent>
+      <CustomersGroup>
+        <Img src={logo1}></Img>
+        <Img src={logo2}></Img>
+      </CustomersGroup>
+      <CarouselSection>
+        <CarouselContainer>
+          <CarouselTrack ref={trackRef} translateValue={translateValue}>
+            {carouselItems.map((item, index) => (
+              <CarouselItem key={item.id}>
+                <KavichImg src={item.img}/>
+                <Text1>{item.text1}</Text1>
+                <Author>{item.author}</Author>
+                <Text2>{item.text2}</Text2>
+              </CarouselItem>
+            ))}
+          </CarouselTrack>
+        </CarouselContainer>
+        <DotsContainer>
+          <NavButton onClick={prevSlide} aria-label="Previous question">←</NavButton>
+          {carouselItems.map((_, index) => (
+            <Dot
+              key={index}
+              active={index === currentIndex}
+              onClick={() => goToSlide(index)}
+              aria-label={'Go to question ${index + 1}'}
+            />
+          ))}
+          <NavButton onClick={nextSlide} aria-label="Next question">→</NavButton>
+        </DotsContainer>
+      </CarouselSection>
+      <TabSection>
+        <WorkspaceTitle2>Frequently Ask Question</WorkspaceTitle2>
+        <WorkspaceSubtitle>Some of our frequently asked questions</WorkspaceSubtitle>
+        <TabContainer>
+          {tabItems.map((item) => (
+            <TabItem key={item.id}>
+              <TabHeader onClick={() => toggleItem(item.id)} aria-expanded={openItems[item.id]}>
+                <Question>{item.question}</Question>
+                <Arrow isOpen={openItems[item.id]} />
+              </TabHeader>
+              <TabContent isOpen={openItems[item.id]}>
+                <Answer>{item.answer}</Answer>
+              </TabContent>
+            </TabItem>
+          ))}
+        </TabContainer>
+      </TabSection>
+      <Testimonials>
+        <WorkspaceTitle2>Testimonials</WorkspaceTitle2>
+        <WorkspaceSubtitle>Some testimonials from our customers</WorkspaceSubtitle>
+        <TermonialContainer>
+          <TestimonialsGrid>
+            {testimonials.map((testimonial) => (
+              <TestimonialCard key={testimonial.id}>
+                <UserAvatar src={testimonial.img}/>
+                <TestimonialContent>
+                  <UserName>{testimonial.name}</UserName>
+                  <UserCompany>{testimonial.company}</UserCompany>
+                  <Text>{testimonial.text}</Text>
+                  <UserInfo>
+                    <Stars>★★★★★</Stars>
+                  </UserInfo>
+                </TestimonialContent>
+              </TestimonialCard>
+            ))}
+          </TestimonialsGrid>
+        </TermonialContainer>
+      </Testimonials>
+      <Footer>
+        <YellowCard>
+          <FooterTitle>Are You Ready For</FooterTitle>
+          <FooterSubtitle>Start a New Project</FooterSubtitle>
+          <FooterButton href="/">Start Now →</FooterButton>
+        </YellowCard>
+        <BlueCard>
+          <FooterTitle>Get Notified About Project</FooterTitle>
+          <FooterSubtitle>Subscribe Now</FooterSubtitle>
+          <FooterInput type="email" placeholder="Email"/>
+        </BlueCard>
+      </Footer>
     </div>
   );
 };
